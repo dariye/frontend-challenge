@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 export default {
   env: {
     api: process.env.API
@@ -9,7 +11,8 @@ export default {
     debug: true,
     proxy: true,
     proxyHeaders: false,
-    https: true
+    progress: true,
+    https: process.env.NODE_ENV === 'production' ? true : false
   },
   render: {
     extend (config, ctx) {
@@ -28,13 +31,14 @@ export default {
   css: ['@vuikit/theme'],
   plugins: [
     '~/plugins/vuikit.js',
-    '~/plugins/vue-mugen-scroll.js'
+    '~/plugins/vue-rangedate-picker.js'
   ],
   vendor: [
     'babel-polyfill',
-    'vue-mugen-scroll'
+    'vue-rangedate-picker'
   ],
   modules: [
+    ['@nuxtjs/dotenv'],
     ['@nuxtjs/pwa'],
     ['@nuxtjs/axios'],
     ['@nuxtjs/proxy'],

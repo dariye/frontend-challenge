@@ -1,10 +1,21 @@
 <template>
-  <vk-card type="primary">
-    <vk-card-title>$10</vk-card-title>
-    <div class="uk-inline">
-      <vk-button>Hover</vk-button>
-      <vk-dropdown>hey</vk-dropdown>
-    </div>
-    <hr class="uk-divider-icon">
-  </vk-card>
+  <div class="uk-container">
+    <h1 class="uk-heading-primary uk-margin-medium-left">Your expenses ({{total}})</h1>
+    <expenses />
+  </div>
 </template>
+<script type="text/javascript">
+import { mapState } from 'vuex'
+
+import expenses from '~/containers/expenses'
+export default {
+  name: 'IndexPage',
+  scrollToTop: true,
+  computed: {
+    ...mapState('expense', ['total'])
+  },
+  components: {
+    expenses
+  }
+}
+</script>
