@@ -1,6 +1,9 @@
 require('dotenv').config()
 
 export default {
+  loading: {
+    color: '#D90378'
+  },
   env: {
     api: process.env.API
   },
@@ -35,7 +38,8 @@ export default {
   ],
   vendor: [
     'babel-polyfill',
-    'vue-rangedate-picker'
+    'vue-rangedate-picker',
+    'lodash.debounce'
   ],
   modules: [
     ['@nuxtjs/dotenv'],

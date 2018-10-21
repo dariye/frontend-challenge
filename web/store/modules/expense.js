@@ -26,6 +26,15 @@ const actions = {
   },
   SET_EXPENSES: ({ commit }, expenses) => {
     commit('SET_EXPENSES', { expenses })
+  },
+  async postComment ({ app, commit }, { id, comment }) {
+    const { $axios, env: { api } } = this.app.context
+    const data = { comment }
+    try {
+      await $axios.post(`${api}/expenses/${id}`, data)
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
@@ -41,7 +50,7 @@ const mutations = {
   },
   SET_EXPENSES: (state, { expenses }) => {
     state.expenses = expenses
-  }
+  },
 }
 
 export default {

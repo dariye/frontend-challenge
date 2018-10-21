@@ -1,4 +1,4 @@
-<template>
+<template lang="html">
   <div class="uk-section">
     <vk-sticky>
       <div class="uk-container">

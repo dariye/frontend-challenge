@@ -19,7 +19,7 @@
     <div slot="footer">
       <vk-grid class="uk-flex-between">
         <user :data="data.user" />
-        <actions :comment="data.comment" :receipts="data.receipts" />
+        <actions :id="data.id" :comment="data.comment" :receipts="data.receipts" />
       </vk-grid>
     </div>
   </vk-card>
