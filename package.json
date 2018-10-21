@@ -1,0 +1,19 @@
+{
+  "name": "frontend-challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:pauldariye/frontend-challenge.git",
+  "author": "Paul Dariye <paul.dariye@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "run-s install:*",
+    "install:api": "yarn install --cwd api",
+    "install:web": "yarn install --cwd web",
+    "dev": "run-p dev:*",
+    "dev:api": "yarn --cwd api start",
+    "dev:web": "yarn --cwd web dev"
+  },
+  "dependencies": {
+    "yarn-run-all": "^3.1.1"
+  }
+}

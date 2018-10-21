@@ -1,0 +1,25 @@
+# pwa
+sw.*
+workbox-*
+
+# dependencies
+node_modules
+package-lock.json
+yarn.lock
+
+# logs
+npm-debug.log
+*.log
+
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
+
+# test
+coverage
+.nyc_output
+
+# others
+.DS_Store
