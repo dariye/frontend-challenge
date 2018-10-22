@@ -51,6 +51,18 @@ const actions = {
     } catch (err) {
       console.log(err)
     }
+  },
+  async postReceipt ({ app, commit }, { id, receipt }) {
+    const { $axios, env: { api } } = this.app.context
+
+    const form = new FormData()
+    form.append('receipt', receipt, receipt.name)
+
+    try {
+      await $axios.post(`${api}/expenses/${id}/receipts`, form)
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 

@@ -1,10 +1,11 @@
 <template lang="html">
-  <nav class="vk-navbar uk-margin-large-bottom" transparent>
+  <vk-navbar class="uk-margin-large-bottom" transparent>
     <vk-navbar-nav>
-      <vk-navbar-logo><logo size="9.125" type="default" color="#D90378"></logo></vk-navbar-logo>
+      <div class="uk-container">
+        <vk-navbar-logo><logo size="9.125" type="default" color="#D90378"></logo></vk-navbar-logo>
+      </div>
     </vk-navbar-nav>
-    <hr />
-  </nav>
+  </vk-navbar>
 </template>
 <script type="text/javascript">
 import logo from '~/components/logo'

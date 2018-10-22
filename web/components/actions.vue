@@ -1,12 +1,12 @@
 <template lang="html">
   <div class="uk-width-auto" ref="actions">
     <comment :id="id" :data="comment" />
-    <receipt :data="receipts" />
+    <receipt :id="id" :data="receipts" />
   </div>
 </template>
 <script type="text/javascript">
 import comment from '~/containers/comment'
-import receipt from '~/components/receipt'
+import receipt from '~/containers/receipt'
 
 export default {
   name: 'Actions',

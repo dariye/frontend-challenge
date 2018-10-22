@@ -1,20 +1,22 @@
 <template lang="html">
   <div class="uk-inline">
-    <vk-icon icon="file" v-if="data.length === 0"></vk-icon>
+    <vk-icon icon="file" v-if="receipts.length === 0"></vk-icon>
     <vk-icon icon="file-edit" v-else></vk-icon>
     <vk-drop boundary="actions" position="bottom-right">
       <vk-card class="uk-border-rounded">
-        <ul class="uk-list uk-list-divider" v-if="data.length
+        <ol class="uk-list uk-list-divider" v-if="receipts.length
           !== 0">
-          <li class="uk-text-meta uk-text-muted" v-for="(receipt, index) in
-                                                 data"><a class="uk-link-muted"
-                                                                   href="#">{{receipt.name}}</a></li>
-        </ul>
+          <li v-for="(receipt, index) in receipts">
+            <a class="uk-link-muted uk-inline" :href="receipt.url" target="_blank">{{index+1}}
+              <vk-icon icon="file"></vk-icon></a></li>
+        </ol>
         <span class="uk-text-meta" v-else>No receipts for expense</span>
-        <div class="uk-inline uk-margin-top js-upload" uk-form-custom>
-          <input type="file" multiple id="receipt">
+        <div class="uk-inline uk-margin-top upload" uk-form-custom>
           <vk-button type="text" tabindex="-1"><vk-icon
-                icon="upload" class="uk-margin-right"></vk-icon>Upload receipts</vk-button>
+                icon="upload" class="uk-margin-right upload-btn"></vk-icon>Upload receipts</vk-button>
+          <input type="file" id="receipt"
+            @change.stop.prevent="$emit('upload:receipt', $event)"
+            ref="receipt">
         </div>
       </vk-card>
     </vk-drop>
@@ -24,16 +26,24 @@
 export default {
   name: 'Receipt',
   props: {
-    data: {
+    receipts: {
       type: Array,
       required: true,
       default: []
     },
-  }
+  },
 }
 </script>
 <style scoped>
-#receipt {
-  display: none;
+.upload {
+  position: relative;
+  overflow: hidden;
+}
+
+.upload input[type=file] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
 }
 </style>
