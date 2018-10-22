@@ -17,7 +17,7 @@
     <div class="uk-section">
       <div class="uk-container">
         <div v-for="expense in filtered" v-if="filtered.length !== 0">
-          <expense :data="expense" :key="expense.id"></expense>
+          <expense class="uk-animation-toggle" :data="expense" :key="expense.id"></expense>
         </div>
           <mugen-scroll
             scroll-container="'expenses'"

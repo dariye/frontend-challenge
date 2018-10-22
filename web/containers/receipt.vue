@@ -33,12 +33,13 @@ export default {
   methods: {
     uploadReceipt: function (event) {
       if (event.target.files.length === 0) return
+      const receipt = event.target.files[0]
       this.$store.dispatch('expense/postReceipt', {
         id: this.id,
-        receipt: event.target.files[0]
+        receipt
       })
       this.receipts.push({
-        url: `/receipts/${this.id}-${this.receipts.length}` })
+        url: `/receipts/${this.id}-${this.receipts.length}-${receipt.name}` })
     }
   },
   components: {

@@ -1,6 +1,5 @@
 <template lang="html">
-  <vk-card class="uk-transform-origin-bottom-center uk-animation-scale-up
-    uk-width-1-1@m uk-border-rounded uk-margin-bottom" hover padding>
+  <vk-card class="uk-width-1-1@m uk-border-rounded uk-margin-bottom" hover padding>
     <div slot="header">
       <vk-grid class="uk-flex-between uk-flex-middle">
         <div class="uk-width-auto">
