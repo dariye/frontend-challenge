@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="uk-section">
+  <div class="uk-section" id="expenses">
     <vk-sticky>
       <div class="uk-container">
         <search :search.sync="search"></search>
@@ -18,6 +18,13 @@
       <div class="uk-container">
         <div v-for="expense in filtered" v-if="filtered.length !== 0">
           <expense :data="expense" :key="expense.id"></expense>
+        </div>
+          <mugen-scroll
+            scroll-container="'expenses'"
+            :handler="fetchExpenses"
+            :should-handle="!loading">
+              <vk-spinner ratio></vk-spinner>
+          </mugen-scroll>
         </div>
       </div>
     </div>
@@ -60,6 +67,7 @@ export default {
   },
   computed: {
     ...mapState('filter', ['query', 'order', 'type']),
+    ...mapState('expense', ['loading']),
     ...mapGetters('expense', ['expenses', 'pages', 'current']),
     filteredByQuery: function () {
       const preparedQuery = fz.prepareQuery(this.search)
@@ -88,11 +96,26 @@ export default {
       return this.expenses
     }
   },
+  methods: {
+    fetchExpenses: function () {
+      this.$store.dispatch('expense/SET_LOADING', true)
+      this.$store.dispatch('expense/INCREMENT_PAGE')
+      this.$store.dispatch('expense/fetchExpenses')
+    }
+  }
 }
 </script>
 <style scoped>
 .uk-sticky-fixed {
   background: #F0F4F6;
   width: 100% !important;
+}
+
+.mugen-scroll {
+  text-align: center;
+}
+
+.uk-spinner {
+  color: #D90378;
 }
 </style>

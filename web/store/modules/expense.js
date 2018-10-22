@@ -1,3 +1,5 @@
+import { concatenate, sortByDate } from '../../utils/collection'
+
 const state = {
   limit: 25,
   page: 1,
@@ -63,6 +65,29 @@ const actions = {
     } catch (err) {
       console.log(err)
     }
+  },
+  async fetchExpenses ({ state, commit, dispatch, getters }) {
+    const { $axios, env: { api } } = this.app.context
+
+    const current = getters.current
+    const pages = getters.pages
+    const total = state.total
+    const page = state.page
+    const limit = state.limit
+
+    if (current === total) return
+    if (page === pages) return
+
+    try {
+      const { data } = await $axios.get(`${api}/expenses?limit=${limit}&offset=${limit*page}`)
+      if (data) {
+        const { expenses } = data
+        commit('SET_EXPENSES', { expenses })
+        commit('SET_LOADING', false)
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
@@ -71,13 +96,13 @@ const mutations = {
     state.total = total
   },
   INCREMENT_PAGE: (state) => {
-    state.page = state.page++
+    state.page++
   },
   SET_PAGE: (state, { page }) => {
     state.page = page
   },
   SET_EXPENSES: (state, { expenses }) => {
-    state.expenses = expenses
+    state.expenses = sortByDate(concatenate(state.expenses, expenses))
   },
   SET_LOADING: (state, loading) => {
     state.loading = loading

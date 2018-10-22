@@ -34,12 +34,14 @@ export default {
   css: ['@vuikit/theme'],
   plugins: [
     '~/plugins/vuikit',
+    '~/plugins/vue-mugen-scroll',
     '~/plugins/filters',
   ],
   vendor: [
     'babel-polyfill',
     'lodash.debounce',
-    'fuzzaldrin-plus'
+    'fuzzaldrin-plus',
+    'vue-mugen-scroll'
   ],
   modules: [
     ['@nuxtjs/dotenv'],
