@@ -1,19 +1,20 @@
 <template lang="html">
-  <div>
-
+  <div class="uk-inline">
+    <comment :comment.sync="comment"></comment>
   </div>
 </template>
 <script type="text/javascript">
-import { mapState, mapGetters, mapActions } from 'vuex'
-
-import search from '~/components/search'
-import control from '~/components/control'
-import expense from '~/components/expense'
+import debounce from 'lodash.debounce'
+import comment from '~/components/comment'
 
 export default {
   name: 'CommentContainer',
   props: {
-    comment: {
+    id: {
+      type: String,
+      required: true
+    },
+    data: {
       type: String,
       required: true,
       default: ''
@@ -21,17 +22,20 @@ export default {
   },
   data: function () {
     return {
-      comment: ''
+      comment: this.data
     }
   },
-  computed: {
+  watch: {
+    comment: debounce(function (val, oldVal) {
+      if (val !== oldVal && val !== null) {
+        this.$store.dispatch('expense/postComment', { id: this.id, comment: val })
+      }
+    }, 500)
+  },
+  components: {
     comment
   }
 }
 </script>
 <style scoped>
-.uk-sticky-fixed {
-  background: #F0F4F6;
-  width: 100% !important;
-}
 </style>

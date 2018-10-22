@@ -1,10 +1,12 @@
 import Vuex from 'vuex'
 import expense from './modules/expense'
+import filter from './modules/filter'
 
 const store = () => new Vuex
   .Store({
     modules: {
       expense,
+      filter
     },
     actions: {
       async nuxtServerInit ({ state, commit, dispatch },

@@ -1,5 +1,5 @@
 <template>
-  <div class="uk-container">
+  <div class="wrapper">
     <appnavbar />
     <main>
       <nuxt />
@@ -19,7 +19,11 @@ export default {
 }
 </script>
 <style scoped>
-body, .uk-container {
+body, .wrapper {
   background: #F0F4F6;
+}
+.wrapper {
+  padding: 0;
+  margin: 0;
 }
 </style>

@@ -7,7 +7,7 @@
             merchant">{{data.merchant}}</div>
         </div>
         <div class="uk-width-auto">
-          <div class="uk-text-meta date">{{data.date}}</div>
+          <div class="uk-text-meta date">{{data.date | prettyDate}}</div>
         </div>
       </vk-grid>
     </div>

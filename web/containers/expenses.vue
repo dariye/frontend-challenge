@@ -2,14 +2,22 @@
   <div class="uk-section">
     <vk-sticky>
       <div class="uk-container">
-        <search />
-        <control />
+        <search :search.sync="search"></search>
+        <control
+           v-bind:filterBy="filterBy"
+           v-on:update:type="filterBy = $event"
+           v-bind:orderBy="orderBy"
+           v-on:update:order="orderBy = $event"
+        ></control>
+        <div class="uk-text-meta" v-show="search">Found <span
+                                class="uk-text-bold">{{filtered.length}}</span>
+                                expenses matching "{{search}}"</div>
       </div>
     </vk-sticky>
     <div class="uk-section">
-      <div class="uk-container uk-margin-medium-left">
-        <div v-for="expense in filtered">
-          <expense :data="expense" :key="expense.id"/>
+      <div class="uk-container">
+        <div v-for="expense in filtered" v-if="filtered.length !== 0">
+          <expense :data="expense" :key="expense.id"></expense>
         </div>
       </div>
     </div>
@@ -17,7 +25,8 @@
 </template>
 <script type="text/javascript">
 import { mapState, mapGetters, mapActions } from 'vuex'
-
+import fz from 'fuzzaldrin-plus'
+import debounce from 'lodash.debounce'
 import search from '~/components/search'
 import control from '~/components/control'
 import expense from '~/components/expense'
@@ -31,20 +40,54 @@ export default {
   },
   data: function () {
     return {
-      query: null,
-      range: null,
-      sortBy: 'date',
-      orderBy: 'asc',
-      sorted: false
+      search: this.query,
+      filterBy: this.type,
+      orderBy: this.order,
+    }
+  },
+  watch: {
+    search: debounce(function (val, oldVal) {
+      if (val !== oldVal && val !== null) {
+        this.$store.dispatch('filter/SET_QUERY', val)
+      }
+    }, 500),
+    filterBy: function (val, oldVal) {
+      this.$store.dispatch('filter/SET_TYPE', val)
+    },
+    orderBy: function (val, oldVal) {
+      this.$store.dispatch('filter/SET_ORDER', val)
     }
   },
   computed: {
-    ...mapState('expense', ['total']),
+    ...mapState('filter', ['query', 'order', 'type']),
     ...mapGetters('expense', ['expenses', 'pages', 'current']),
+    filteredByQuery: function () {
+      const preparedQuery = fz.prepareQuery(this.search)
+      const scores = {}
+      return this.expenses
+        .map((expense, index) => {
+          const fields = [
+            expense.id,
+            expense.amount.value,
+            expense.merchant,
+            expense.user.first,
+            expense.user.last,
+            expense.user.email,
+          ].map(score => fz.score(score, this.search, { preparedQuery }))
+
+          scores[expense.id] = Math.max(...fields)
+          return expense
+        })
+        .filter(expense => scores[expense.id] > 1)
+        .sort((a, b) => scores[b.id] - scores[a.id])
+    },
     filtered: function () {
+      if (this.search) {
+        return this.filteredByQuery
+      }
       return this.expenses
     }
-  }
+  },
 }
 </script>
 <style scoped>

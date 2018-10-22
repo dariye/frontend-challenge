@@ -1,7 +1,9 @@
-<template>
-  <div class="uk-container">
-    <h1 class="uk-heading-primary uk-margin-medium-left">Your expenses ({{total}})</h1>
-    <expenses />
+<template lang="html">
+  <div>
+    <div class="uk-container">
+      <h1 class="uk-heading-primary">Your expenses ({{total}})</h1>
+    </div>
+    <expenses></expenses>
   </div>
 </template>
 <script type="text/javascript">

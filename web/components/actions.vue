@@ -1,11 +1,11 @@
 <template lang="html">
   <div class="uk-width-auto" ref="actions">
-    <comment-container :id="id" :data="comment" />
+    <comment :id="id" :data="comment" />
     <receipt :data="receipts" />
   </div>
 </template>
 <script type="text/javascript">
-import commentContainer from '~/containers/comment-container'
+import comment from '~/containers/comment'
 import receipt from '~/components/receipt'
 
 export default {
@@ -27,7 +27,7 @@ export default {
     }
   },
   components: {
-    commentContainer,
+    comment,
     receipt
   }
 }

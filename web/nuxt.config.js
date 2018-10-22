@@ -33,13 +33,13 @@ export default {
   },
   css: ['@vuikit/theme'],
   plugins: [
-    '~/plugins/vuikit.js',
-    '~/plugins/vue-rangedate-picker.js'
+    '~/plugins/vuikit',
+    '~/plugins/filters',
   ],
   vendor: [
     'babel-polyfill',
-    'vue-rangedate-picker',
-    'lodash.debounce'
+    'lodash.debounce',
+    'fuzzaldrin-plus'
   ],
   modules: [
     ['@nuxtjs/dotenv'],
