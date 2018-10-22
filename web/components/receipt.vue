@@ -1,12 +1,12 @@
 <template lang="html">
   <div class="uk-inline">
-    <vk-icon icon="file" v-if="receipts.length === 0"></vk-icon>
+    <vk-icon icon="file" v-if="processed.length === 0"></vk-icon>
     <vk-icon icon="file-edit" v-else></vk-icon>
     <vk-drop boundary="actions" position="bottom-right">
       <vk-card class="uk-border-rounded">
-        <ol class="uk-list uk-list-divider" v-if="receipts.length
+        <ol class="uk-list uk-list-divider" v-if="processed.length
           !== 0">
-          <li v-for="(receipt, index) in receipts">
+          <li v-for="(receipt, index) in processed">
             <a class="uk-link-muted uk-inline" :href="receipt.url" target="_blank">{{index+1}}
               <vk-icon icon="file"></vk-icon></a></li>
         </ol>
@@ -32,6 +32,14 @@ export default {
       default: []
     },
   },
+  computed: {
+    processed: function () {
+      const api = this.$store.app.context.env.api
+      return this.receipts.map(receipt => {
+          return { url: `${api}${receipt.url}`}
+        })
+    }
+  }
 }
 </script>
 <style scoped>

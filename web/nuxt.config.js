@@ -1,6 +1,18 @@
 require('dotenv').config()
 
 export default {
+  head: {
+    title: 'Pleo.io - Expenses, simplified',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: 'Pleo decentralises company spending, eliminates expense reports and reimbursements and simplifies bookkeeping.' },
+      { hid: 'keywords', name: 'keywords', content: 'company payment card,company prepaid card,company expenses,expense reports,reimbursement,petty cash' }
+    ],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ]
+  },
   loading: {
     color: '#D90378'
   },

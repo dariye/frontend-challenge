@@ -5,7 +5,7 @@
       <div class="uk-inline" ref="filterby">
         <vk-button class="uk-float-left uk-text-uppercase
         uk-text-muted uk-border-rounded control">{{filterBy}}</vk-button>
-        <vk-drop boundary="filterby">
+        <vk-drop boundary="filterby" animation="slide-top-small">
           <vk-card class="uk-border-rounded">
             <ul class="uk-list uk-list-divider">
               <li><vk-button type="text" v-on:click="$emit('update:type',
@@ -21,7 +21,7 @@
       <div class="uk-inline" ref="orderby">
         <vk-button class="uk-float-left uk-text-uppercase uk-text-muted
         uk-border-rounded control">{{orderBy}}</vk-button>
-        <vk-drop boundary="orderby">
+        <vk-drop boundary="orderby" anomation="slide-top-small">
           <vk-card class="uk-border-rounded">
             <ul class="uk-list uk-list-divider">
               <li><vk-button type="text" v-on:click="$emit('update:order',

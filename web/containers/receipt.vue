@@ -37,9 +37,8 @@ export default {
         id: this.id,
         receipt: event.target.files[0]
       })
-      const api = this.$store.app.context.env.api
       this.receipts.push({
-        url: `${api}/receipts/${this.id}-${this.receipts.length}` })
+        url: `/receipts/${this.id}-${this.receipts.length}` })
     }
   },
   components: {

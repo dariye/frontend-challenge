@@ -1,0 +1,19 @@
+{
+  "name": "pleo-io-expenses",
+  "alias": "pleo-io-expenses",
+  "type": "npm",
+  "env": {
+    "API": "https://pleo-io-expenses-api.now.sh",
+    "API_URL": "https://pleo-io-expenses.now.sh"
+  },
+  "scale": {
+    "bru1": {
+      "min": 1,
+      "max": 2
+    },
+    "sfo": {
+      "min": 1,
+      "max": 2
+    }
+  }
+}

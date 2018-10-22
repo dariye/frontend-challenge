@@ -18,12 +18,13 @@ export default {
   }
 }
 </script>
-<style scoped>
-body, .wrapper {
-  background: #F0F4F6;
+<style>
+body {
+  background: #F0F4F6 !important;
 }
 .wrapper {
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 800px;
 }
 </style>
