@@ -25,6 +25,7 @@
             :should-handle="!loading">
               <vk-spinner ratio></vk-spinner>
           </mugen-scroll>
+          <p class="uk-text-meta uk-text-center" v-if="page === pages">Loaded all <strong>{{total}}</strong> expenses</p>
         </div>
       </div>
     </div>
@@ -67,8 +68,8 @@ export default {
   },
   computed: {
     ...mapState('filter', ['query', 'order', 'type']),
-    ...mapState('expense', ['loading']),
-    ...mapGetters('expense', ['expenses', 'pages', 'current']),
+    ...mapState('expense', ['loading', 'page']),
+    ...mapGetters('expense', ['expenses', 'pages', 'current', 'index', 'total']),
     filteredByQuery: function () {
       const preparedQuery = fz.prepareQuery(this.search)
       const scores = {}
