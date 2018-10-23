@@ -17,14 +17,14 @@ const getters = {
     if (order === 'DESCENDING') {
       return state.expenses.sort((a, b) => {
         return type === 'DATE'
-          ? new Date(a.date) - new Date(b.date)
-          : a.amount.value - a.amount.value
+          ? new Date(b.date) - new Date(a.date)
+          : b.amount.value - a.amount.value
       })
     }
     return state.expenses.sort((a, b) => {
       return type === 'DATE'
-        ? new Date(b.date) - new Date(a.date)
-        : b.amount.value - a.amount.value
+        ? new Date(a.date) - new Date(b.date)
+        : a.amount.value - b.amount.value
     })
   }
 }
