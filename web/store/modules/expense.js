@@ -10,6 +10,7 @@ const state = {
 
 const getters = {
   pages: (state) => Math.ceil(state.total/state.limit),
+  total: (state) => state.expenses.length,
   index: (state) => ((state.page-1)*state.limit),
   current: (state, getters) => getters.index+state.limit,
   expenses: (state, getters, rootState) => {
@@ -69,17 +70,16 @@ const actions = {
   async fetchExpenses ({ state, commit, dispatch, getters }) {
     const { $axios, env: { api } } = this.app.context
 
-    const current = getters.current
     const pages = getters.pages
+    const current = getters.current
     const total = state.total
     const page = state.page
     const limit = state.limit
 
-    if (current === total) return
-    if (page === pages) return
+    if (current === total || page === pages) return
 
     try {
-      const { data } = await $axios.get(`${api}/expenses?limit=${limit}&offset=${limit*page}`)
+      const { data } = await $axios.get(`${api}/expenses?limit=${limit}&offset=${current}`)
       if (data) {
         const { expenses } = data
         commit('SET_EXPENSES', { expenses })
