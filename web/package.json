@@ -6,7 +6,16 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt start"
+    "start": "nuxt start",
+    "lint": "eslint . --fix"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "plugin:vue/strongly-recommended",
+      "plugin:prettier/recommended",
+      "eslint:recommended"
+    ]
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.3",
@@ -27,5 +36,11 @@
     "vue-rangedate-picker": "^0.3.4",
     "vue-spinner": "^1.0.3",
     "vuikit": "^0.8.10"
+  },
+  "devDependencies": {
+    "eslint": "^5.7.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-vue": "^5.0.0-beta.3"
   }
 }

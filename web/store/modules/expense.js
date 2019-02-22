@@ -1,4 +1,4 @@
-import { concatenate, sortByDate } from '../../utils/collection'
+import { concatenate, sortByDate } from "../../utils/collection";
 
 const state = {
   limit: 25,
@@ -6,108 +6,119 @@ const state = {
   loading: false,
   total: null,
   expenses: []
-}
+};
 
 const getters = {
-  pages: (state) => Math.ceil(state.total/state.limit),
-  total: (state) => state.expenses.length,
-  index: (state) => ((state.page-1)*state.limit),
-  current: (state, getters) => getters.index+state.limit,
+  pages: state => Math.ceil(state.total / state.limit),
+  total: state => state.expenses.length,
+  index: state => (state.page - 1) * state.limit,
+  current: (state, getters) => getters.index + state.limit,
   expenses: (state, getters, rootState) => {
-    const  { type, order } = rootState.filter
-    if (order === 'DESCENDING') {
+    const { type, order } = rootState.filter;
+    if (order === "DESCENDING") {
       return state.expenses.sort((a, b) => {
-        return type === 'DATE'
+        return type === "DATE"
           ? new Date(b.date) - new Date(a.date)
-          : b.amount.value - a.amount.value
-      })
+          : b.amount.value - a.amount.value;
+      });
     }
     return state.expenses.sort((a, b) => {
-      return type === 'DATE'
+      return type === "DATE"
         ? new Date(a.date) - new Date(b.date)
-        : a.amount.value - b.amount.value
-    })
+        : a.amount.value - b.amount.value;
+    });
   }
-}
+};
 
 const actions = {
   SET_TOTAL: ({ commit }, total) => {
-    commit('SET_TOTAL', { total })
+    commit("SET_TOTAL", { total });
   },
   INCREMENT_PAGE: ({ commit }) => {
-    commit('INCREMENT_PAGE')
+    commit("INCREMENT_PAGE");
   },
   SET_PAGE: ({ commit }, page) => {
-    commit('SET_PAGE', { page })
+    commit("SET_PAGE", { page });
   },
   SET_EXPENSES: ({ commit }, expenses) => {
-    commit('SET_EXPENSES', { expenses })
+    commit("SET_EXPENSES", { expenses });
   },
   SET_LOADING: ({ commit }, loading) => {
-    commit('SET_LOADING', loading)
+    commit("SET_LOADING", loading);
   },
-  async postComment ({ app, commit }, { id, comment }) {
-    const { $axios, env: { api } } = this.app.context
-    const data = { comment }
+  async postComment({ app, commit }, { id, comment }) {
+    const {
+      $axios,
+      env: { api }
+    } = this.app.context;
+    const data = { comment };
     try {
-      await $axios.post(`${api}/expenses/${id}`, data)
+      await $axios.post(`${api}/expenses/${id}`, data);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   },
-  async postReceipt ({ app, commit }, { id, receipt }) {
-    const { $axios, env: { api } } = this.app.context
+  async postReceipt({ app, commit }, { id, receipt }) {
+    const {
+      $axios,
+      env: { api }
+    } = this.app.context;
 
-    const form = new FormData()
-    form.append('receipt', receipt, receipt.name)
+    const form = new FormData();
+    form.append("receipt", receipt, receipt.name);
 
     try {
-      await $axios.post(`${api}/expenses/${id}/receipts`, form)
+      await $axios.post(`${api}/expenses/${id}/receipts`, form);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   },
-  async fetchExpenses ({ state, commit, dispatch, getters }) {
-    const { $axios, env: { api } } = this.app.context
+  async fetchExpenses({ state, commit, dispatch, getters }) {
+    const {
+      $axios,
+      env: { api }
+    } = this.app.context;
 
-    const pages = getters.pages
-    const current = getters.current
-    const total = state.total
-    const page = state.page
-    const limit = state.limit
+    const pages = getters.pages;
+    const current = getters.current;
+    const total = state.total;
+    const page = state.page;
+    const limit = state.limit;
 
-    if (current === total || page === pages) return
+    if (current === total || page === pages) return;
 
     try {
-      const { data } = await $axios.get(`${api}/expenses?limit=${limit}&offset=${current}`)
+      const { data } = await $axios.get(
+        `${api}/expenses?limit=${limit}&offset=${current}`
+      );
       if (data) {
-        const { expenses } = data
-        commit('SET_EXPENSES', { expenses })
-        commit('SET_LOADING', false)
+        const { expenses } = data;
+        commit("SET_EXPENSES", { expenses });
+        commit("SET_LOADING", false);
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
-}
+};
 
 const mutations = {
   SET_TOTAL: (state, { total }) => {
-    state.total = total
+    state.total = total;
   },
-  INCREMENT_PAGE: (state) => {
-    state.page++
+  INCREMENT_PAGE: state => {
+    state.page++;
   },
   SET_PAGE: (state, { page }) => {
-    state.page = page
+    state.page = page;
   },
   SET_EXPENSES: (state, { expenses }) => {
-    state.expenses = sortByDate(concatenate(state.expenses, expenses))
+    state.expenses = sortByDate(concatenate(state.expenses, expenses));
   },
   SET_LOADING: (state, loading) => {
-    state.loading = loading
+    state.loading = loading;
   }
-}
+};
 
 export default {
   namespaced: true,
@@ -115,4 +126,4 @@ export default {
   getters,
   actions,
   mutations
-}
+};
